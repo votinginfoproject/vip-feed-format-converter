@@ -8,7 +8,7 @@ Currently only supports 5.1 XML -> 5.1 CSV.
 
     $ lein uberjar
     $ mkdir csv-out-dir
-    $ java -jar target/vip-feed-format-converter-0.1.0-standalone.jar input.xml csv-out-dir
+    $ java -jar target/vip-feed-format-converter.jar input.xml csv-out-dir
 
 ## License
 
