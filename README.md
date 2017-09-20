@@ -59,7 +59,8 @@ You would pass `vip-feed-format-converter.xml/parse-file` a context map with a
                                           (get-in event
                                                   [:prior :attrs :language])
                                       (assoc-in ctx [:tmp :election :name]
-                                                (:str event)))))}}
+                                                (:str event)))
+                                      ctx))}}
                         :end (fn [ctx _]
                                (-> ctx
                                    (update-in [:csv-data :election :data]
