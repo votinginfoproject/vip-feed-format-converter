@@ -1,4 +1,4 @@
-(ns vip-feed-format-converter.locality
+(ns vip-feed-format-converter.xml2csv.locality
   (:require [clojure.string :as str]
             [vip-feed-format-converter.util :as util]))
 

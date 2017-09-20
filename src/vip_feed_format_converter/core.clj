@@ -1,7 +1,7 @@
 (ns vip-feed-format-converter.core
   (:require [vip-feed-format-converter.csv :as csv]
-            [vip-feed-format-converter.election :as election]
-            [vip-feed-format-converter.locality :as locality]
+            [vip-feed-format-converter.xml2csv.election :as election]
+            [vip-feed-format-converter.xml2csv.locality :as locality]
             [vip-feed-format-converter.xml :as xml]
             [clojure.java.io :as io])
   (:gen-class))
