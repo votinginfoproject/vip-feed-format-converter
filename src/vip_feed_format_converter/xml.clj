@@ -26,8 +26,8 @@
       (let [handler-ctx (handler ctx (if (instance? CharsEvent event)
                                        (assoc event :prior prior-event)
                                        event))]
-        (assoc handler-ctx :tag-path next-tag-path)))
-    (assoc ctx :tag-path next-tag-path)))
+        (assoc handler-ctx :tag-path next-tag-path))
+      (assoc ctx :tag-path next-tag-path))))
 
 (defn parse-file [{:keys [input] :as ctx}]
   (let [events (xml/event-seq input {})]

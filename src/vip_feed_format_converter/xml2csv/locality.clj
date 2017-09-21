@@ -1,6 +1,5 @@
 (ns vip-feed-format-converter.xml2csv.locality
-  (:require [clojure.string :as str]
-            [vip-feed-format-converter.util :as util]))
+  (:require [vip-feed-format-converter.util :as util]))
 
 (def headers
   [:id :election_administration_id :external_identifier_type

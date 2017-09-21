@@ -1,6 +1,5 @@
 (ns vip-feed-format-converter.xml2csv.election
-  (:require [clojure.string :as str]
-            [vip-feed-format-converter.util :as util]))
+  (:require [vip-feed-format-converter.util :as util]))
 
 (def headers
   [:id :date :name :election_type :state_id :is_statewide
