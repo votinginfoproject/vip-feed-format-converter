@@ -83,7 +83,6 @@ code in the `xml2csv` namespaces.
 
 ## License
 
-Copyright © 2017 Democracy Works, Inc.
+Copyright © 2017, The Pew Charitable Trusts. All rights reserved.
 
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+Distributed under the BSD 3-Clause License. See the `LICENSE` file for details.
