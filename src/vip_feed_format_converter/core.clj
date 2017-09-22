@@ -4,6 +4,7 @@
             [vip-feed-format-converter.xml2csv.electoral-district
              :as electoral-district]
             [vip-feed-format-converter.xml2csv.locality :as locality]
+            [vip-feed-format-converter.xml2csv.source :as source]
             [vip-feed-format-converter.xml2csv.street-segment
              :as street-segment]
             [vip-feed-format-converter.xml :as xml]
@@ -24,6 +25,7 @@
           {:Election election/handlers
            :Locality locality/handlers
            :ElectoralDistrict electoral-district/handlers
+           :Source source/handlers
            :StreetSegment street-segment/handlers}}))
 
 (defn set-headers [ctx]
@@ -32,6 +34,7 @@
       (assoc-in [:csv-data :locality :headers] locality/headers)
       (assoc-in [:csv-data :electoral-district :headers]
                 electoral-district/headers)
+      (assoc-in [:csv-data :source :headers] source/headers)
       (assoc-in [:csv-data :street-segment :headers] street-segment/headers)))
 
 (defn process [in-file out-dir]
