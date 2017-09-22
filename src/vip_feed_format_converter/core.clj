@@ -1,9 +1,11 @@
 (ns vip-feed-format-converter.core
   (:require [vip-feed-format-converter.csv :as csv]
             [vip-feed-format-converter.xml2csv.election :as election]
-            [vip-feed-format-converter.xml2csv.locality :as locality]
             [vip-feed-format-converter.xml2csv.electoral-district
              :as electoral-district]
+            [vip-feed-format-converter.xml2csv.locality :as locality]
+            [vip-feed-format-converter.xml2csv.street-segment
+             :as street-segment]
             [vip-feed-format-converter.xml :as xml]
             [clojure.java.io :as io])
   (:gen-class))
@@ -21,14 +23,16 @@
          {:VipObject
           {:Election election/handlers
            :Locality locality/handlers
-           :ElectoralDistrict electoral-district/handlers}}))
+           :ElectoralDistrict electoral-district/handlers
+           :StreetSegment street-segment/handlers}}))
 
 (defn set-headers [ctx]
   (-> ctx
       (assoc-in [:csv-data :election :headers] election/headers)
       (assoc-in [:csv-data :locality :headers] locality/headers)
       (assoc-in [:csv-data :electoral-district :headers]
-                electoral-district/headers)))
+                electoral-district/headers)
+      (assoc-in [:csv-data :street-segment :headers] street-segment/headers)))
 
 (defn process [in-file out-dir]
   (-> {:in-file in-file
