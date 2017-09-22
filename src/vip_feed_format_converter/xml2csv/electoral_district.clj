@@ -8,7 +8,7 @@
 
 (defn assoc-chars [key]
   (fn [ctx event]
-    (util/assoc-chars ctx event :electoral-district)))
+    (util/assoc-chars :electoral-district ctx event key)))
 
 (def handlers
   {:start (fn [ctx event]
@@ -16,13 +16,13 @@
                       {:id (get-in event [:attrs :id])}))
    :ExternalIdentifiers
    {:ExternalIdentifier
-    {:Type {:chars (assoc-chars :external_identifier_type)}
-     :OtherType {:chars (assoc-chars :external_identifier_othertype)}
-     :Value {:chars (assoc-chars :external_identifier_value)}}}
-   :Name {:chars (assoc-chars :name)}
-   :Number {:chars (assoc-chars :number)}
-   :Type {:chars (assoc-chars :type)}
-   :OtherType {:chars (assoc-chars :other_type)}
+    {:Type        {:chars (assoc-chars :external_identifier_type)}
+     :OtherType   {:chars (assoc-chars :external_identifier_othertype)}
+     :Value       {:chars (assoc-chars :external_identifier_value)}}}
+   :Name       {:chars (assoc-chars :name)}
+   :Number     {:chars (assoc-chars :number)}
+   :Type       {:chars (assoc-chars :type)}
+   :OtherType  {:chars (assoc-chars :other_type)}
    :end (fn [ctx _]
           (-> ctx
               (update-in [:csv-data :electoral-district :data]
