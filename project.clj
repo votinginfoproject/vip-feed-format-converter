@@ -5,7 +5,8 @@
             :url "https://opensource.org/licenses/BSD-3-Clause"}
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/data.xml "0.2.0-alpha2"]
-                 [org.clojure/data.csv "0.1.4"]]
+                 [org.clojure/data.csv "0.1.4"]
+                 [org.clojure/core.async "0.3.443"]]
   :main ^:skip-aot vip-feed-format-converter.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}}
