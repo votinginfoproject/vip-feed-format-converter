@@ -24,6 +24,7 @@
                type)))
 
 (defn write-files [ctx]
+  (println "Writing cached files")
   (doseq [[file {:keys [headers data]}] (:csv-data ctx)]
     (let [csv-data (reduce (fn [m d]
                              (conj m
@@ -32,4 +33,6 @@
                            [(map name headers)] data)]
       (with-open [csv-file (io/writer (str (:out-dir ctx)
                                            "/" (name file) ".csv"))]
-        (csv/write-csv csv-file csv-data)))))
+        (csv/write-csv csv-file csv-data))))
+  (println "Done writing cached files")
+  ctx)
