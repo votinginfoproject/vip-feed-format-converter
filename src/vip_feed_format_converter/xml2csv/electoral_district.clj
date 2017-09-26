@@ -14,6 +14,7 @@
   {:start (fn [ctx event]
             (assoc-in ctx [:tmp :electoral-district]
                       {:id (get-in event [:attrs :id])}))
+   ;; Note, will currently only save the LAST External Identifier in the CSV
    :ExternalIdentifiers
    {:ExternalIdentifier
     {:Type        {:chars (assoc-chars :external_identifier_type)}

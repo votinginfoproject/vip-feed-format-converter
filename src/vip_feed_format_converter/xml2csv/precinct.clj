@@ -20,6 +20,7 @@
                       {:id (get-in event [:attrs :id])}))
    :BallotStyleId        {:chars (assoc-chars :ballot_style_id)}
    :ElectoralDistrictIds {:chars (assoc-chars :electoral_district_ids)}
+   ;; Note, will currently only save the LAST External Identifier in the CSV
    :ExternalIdentifiers
    {:ExternalIdentifier
     {:Type        {:chars (assoc-chars :external_identifier_type)}
