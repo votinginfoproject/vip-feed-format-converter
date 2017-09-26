@@ -1,6 +1,7 @@
 (ns vip-feed-format-converter.xml2csv.street-segment
   (:require [clojure.string :as str]
-            [vip-feed-format-converter.util :as util]))
+            [vip-feed-format-converter.util :as util]
+            [clojure.core.async :as async]))
 
 (def headers
   [:id :address_direction :city :includes_all_addresses :includes_all_streets
@@ -12,7 +13,8 @@
   (fn [ctx event]
     (util/assoc-chars :street-segment ctx event key)))
 
-(def handlers
+(defn handlers
+  [channel]
   {:start (fn [ctx event]
             (assoc-in ctx [:tmp :street-segment]
                       {:id (get-in event [:attrs :id])}))
@@ -32,7 +34,5 @@
    :UnitNumber              {:chars (assoc-chars :unit_number)}
    :Zip                     {:chars (assoc-chars :zip)}
    :end (fn [ctx _]
-          (-> ctx
-              (update-in [:csv-data :street-segment :data]
-                         conj (get-in ctx [:tmp :street-segment]))
-              (update :tmp dissoc :street-segment)))})
+          (async/>!! channel (get-in ctx [:tmp :street-segment]))
+          (update ctx :tmp dissoc :street-segment))})
