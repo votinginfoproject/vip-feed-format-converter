@@ -12,7 +12,8 @@
             [vip-feed-format-converter.xml2csv.street-segment
              :as street-segment]
             [vip-feed-format-converter.xml :as xml]
-            [clojure.java.io :as io])
+            [clojure.java.io :as io]
+            [clojure.core.async :as async])
   (:gen-class))
 
 (defn open-input-file [ctx]
@@ -33,7 +34,8 @@
            :Precinct           precinct/handlers
            :Source             source/handlers
            :State              state/handlers
-           :StreetSegment      street-segment/handlers}}))
+           :StreetSegment      (street-segment/handlers
+                                (-> ctx :channels :street-segment))}}))
 
 (defn set-headers [ctx]
   (-> ctx
@@ -50,20 +52,39 @@
       (assoc-in [:csv-data :source :headers]
                 source/headers)
       (assoc-in [:csv-data :state :headers]
-                state/headers)
-      (assoc-in [:csv-data :street-segment :headers]
-                street-segment/headers)))
+                state/headers)))
+
+(defn setup-writers [ctx]
+  (-> ctx
+      (csv/setup-writer :street-segment street-segment/headers
+                        (-> ctx :channels :street-segment))))
+
+(defn close-channels [ctx]
+  (println "Closing read channels")
+  (run! async/close! (-> ctx :channels vals))
+  ctx)
+
+(defn wait-for-finish [ctx]
+  (println "Waiting for write threads to finish")
+  (run! async/<!! (-> ctx :write-channels))
+  ctx)
 
 (defn process [in-file out-dir]
   (-> {:in-file in-file
        :out-dir out-dir
-       :tag-path []}
+       :tag-path []
+       :channels {:street-segment (async/chan 100)}
+       :write-channels []}
       open-input-file
+      setup-writers
       set-handlers
       set-headers
       xml/parse-file
+      close-channels
       csv/write-files
-      close-input-file))
+      wait-for-finish
+      close-input-file)
+  (println "Done!"))
 
 (defn -main
   [in-file out-dir & args]
