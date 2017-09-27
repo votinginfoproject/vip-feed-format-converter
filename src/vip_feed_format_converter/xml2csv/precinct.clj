@@ -10,10 +10,6 @@
   (fn [ctx value]
     (util/assoc-chars :precinct ctx value key)))
 
-(defn assoc-intl-text [key]
-  (fn [ctx value]
-    (util/assoc-intl-text :precinct "en" ctx value key)))
-
 (def handlers
   {:start (fn [ctx event]
             (assoc-in ctx [:tmp :precinct]

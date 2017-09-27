@@ -8,7 +8,6 @@
    :odd_even_both :precinct_id :start_house_number :end_house_number :state
    :street_direction :street_name :street_suffix :unit_number :zip])
 
-
 (defn assoc-chars [key]
   (fn [ctx event]
     (util/assoc-chars :street-segment ctx event key)))

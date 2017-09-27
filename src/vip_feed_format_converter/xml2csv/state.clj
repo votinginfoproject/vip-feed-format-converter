@@ -11,8 +11,6 @@
   (fn [ctx event]
     (util/assoc-chars :state ctx event key)))
 
-(def assoc-intl-text (partial util/assoc-intl-text :state "en"))
-
 (def handlers
   {:start (fn [ctx event]
             (assoc-in ctx [:tmp :state]
