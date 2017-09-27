@@ -10,15 +10,16 @@
   (fn [ctx event]
     (util/assoc-chars :source ctx event key)))
 
-(def assoc-intl-text (partial util/assoc-intl-text :source "en"))
+(defn assoc-intl-text [key]
+  (fn [ctx value]
+    (util/assoc-intl-text :source "en" ctx value key)))
 
 (def handlers
   {:start (fn [ctx event]
             (assoc-in ctx [:tmp :source]
                       {:id (get-in event [:attrs :id])}))
    :DateTime        {:chars (assoc-chars :date_time)}
-   :Description     {:Text {:chars (fn [ctx event]
-                                     (assoc-intl-text ctx event :description))}}
+   :Description     {:Text {:chars (assoc-intl-text :description)}}
    :Name            {:chars (assoc-chars :name)}
    :OrganizationUri {:chars (assoc-chars :organization_uri)}
    :TouUri          {:chars (assoc-chars :terms_of_use_uri)}
