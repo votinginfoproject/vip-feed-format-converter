@@ -30,6 +30,7 @@
       (assoc ctx :tag-path next-tag-path))))
 
 (defn parse-file [{:keys [input] :as ctx}]
+  (println "Parsing xml file")
   (let [events (xml/event-seq input {})]
     (loop [event (first events)
            prior-event nil
@@ -45,4 +46,6 @@
                  (rest remaining-events)
                  next-ctx
                  (inc iteration))
-          next-ctx)))))
+          (do
+            (println "\nDone parsing xml file")
+            next-ctx))))))

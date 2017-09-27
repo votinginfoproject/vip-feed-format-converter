@@ -8,44 +8,33 @@
    :registration_deadline :absentee_request_deadline
    :hours_open_id])
 
-(def assoc-chars (partial util/assoc-chars :election))
+(defn assoc-chars [key]
+  (fn [ctx value]
+    (util/assoc-chars :election ctx value key)))
 
-(def assoc-intl-text (partial util/assoc-intl-text :election "en"))
+(defn assoc-intl-text [key]
+  (fn [ctx value]
+    (util/assoc-intl-text :election "en" ctx value key)))
 
 (def handlers
   {:start (fn [ctx event]
             (assoc-in ctx [:tmp :election]
                       {:id (get-in event [:attrs :id])}))
-   :Date {:chars (fn [ctx event] (assoc-chars ctx event :date))}
-   :Name {:Text {:chars (fn [ctx event]
-                          (assoc-intl-text ctx event :name))}}
-   :ElectionType {:Text {:chars
-                         (fn [ctx event]
-                           (assoc-intl-text ctx event :election_type))}}
-   :StateId {:chars (fn [ctx event]
-                      (assoc-chars ctx event :state_id))}
-   :IsStatewide {:chars (fn [ctx event]
-                          (assoc-chars ctx event :is_statewide))}
-   :RegistrationInfo {:chars (fn [ctx event]
-                               (assoc-intl-text ctx event :registration_info))}
-   :AbsenteeBallotInfo {:chars (fn [ctx event]
-                                 (assoc-intl-text ctx event
-                                                  :absentee_ballot_info))}
-   :ResultsUri {:chars (fn [ctx event]
-                         (assoc-chars ctx event :results_uri))}
-   :PollingHours {:chars (fn [ctx event]
-                           (assoc-intl-text ctx event :polling_hours))}
-   :HoursOpenId {:chars (fn [ctx event]
-                          (assoc-chars ctx event :hours_open_id))}
+   :Date                 {:chars (assoc-chars :date)}
+   :Name          {:Text {:chars (assoc-intl-text :name)}}
+   :ElectionType  {:Text {:chars (assoc-intl-text :election_type)}}
+   :StateId              {:chars (assoc-chars :state_id)}
+   :IsStatewide          {:chars (assoc-chars :is_statewide)}
+   :RegistrationInfo     {:chars (assoc-intl-text :registration_info)}
+   :AbsenteeBallotInfo   {:chars (assoc-intl-text :absentee_ballot_info)}
+   :ResultsUri           {:chars (assoc-chars :results_uri)}
+   :PollingHours         {:chars (assoc-intl-text :polling_hours)}
+   :HoursOpenId          {:chars (assoc-chars :hours_open_id)}
    :HasElectionDayRegistration
-   {:chars (fn [ctx event]
-             (assoc-chars ctx event :has_election_day_registration))}
-   :RegistrationDeadline
-   {:chars (fn [ctx event]
-             (assoc-chars ctx event :registration_deadline))}
+                         {:chars (assoc-chars :has_election_day_registration)}
+   :RegistrationDeadline {:chars (assoc-chars :registration_deadline)}
    :AbsenteeRequestDeadline
-   {:chars (fn [ctx event]
-             (assoc-chars ctx event :absentee_request_deadline))}
+                         {:chars (assoc-chars :absentee_request_deadline)}
    :end (fn [ctx _]
           (-> ctx
               (update-in [:csv-data :election :data]
