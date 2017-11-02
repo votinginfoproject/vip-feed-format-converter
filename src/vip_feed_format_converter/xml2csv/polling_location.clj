@@ -9,6 +9,10 @@
   (fn [ctx value]
     (util/assoc-chars :polling-location ctx value key)))
 
+(defn append-chars [key]
+  (fn [ctx value]
+    (util/append-chars :polling-location ctx value key " ")))
+
 (defn assoc-intl-text [key]
   (fn [ctx value]
     (util/assoc-intl-text :polling-location "en" ctx value key)))
@@ -19,7 +23,7 @@
                       {:id (get-in event [:attrs :id])}))
    :Name              {:chars (assoc-chars :name)}
    ;; Note, for now will only take the LAST Address Line
-   :AddressLine       {:chars (assoc-chars :address_line)}
+   :AddressLine       {:chars (append-chars :address_line)}
    :Directions        {:Text {:chars (assoc-intl-text :directions)}}
    :Hours             {:Text {:chars (assoc-intl-text :hours)}}
    :HoursOpenId       {:chars (assoc-chars :hours_open_id)}

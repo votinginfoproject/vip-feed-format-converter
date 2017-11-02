@@ -8,7 +8,16 @@
            (assoc-chars :tlk {} {:str "the thing with the deal"} :key))))
   (testing "trims the :str value from event arg"
     (is (= {:tmp {:tlk {:key "  the thing with the deal "}}})
-       (assoc-chars :tlk {} {:str "the thing with the deal"} :key))))
+        (assoc-chars :tlk {} {:str "the thing with the deal"} :key))))
+
+(deftest append-chars-test
+  (testing "assoc's :str value when currently empty"
+    (is (= {:tmp {:tlk {:key "the thing with the deal"}}}
+           (append-chars :tlk {} {:str "the thing with the deal"} :key " "))))
+  (testing "concatenates with separator when something is there"
+    (is (= {:tmp {:tlk {:key " the thing with the deal"}}})
+        (append-chars :tlk {:tmp {:tlk {:key "the thing with"}}}
+                      {:str "the deal"} :key " "))))
 
 (deftest assoc-intl-text-test
   (testing "assoc-char's when language matches"
