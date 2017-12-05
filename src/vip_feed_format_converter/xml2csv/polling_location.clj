@@ -22,7 +22,6 @@
             (assoc-in ctx [:tmp :polling-location]
                       {:id (get-in event [:attrs :id])}))
    :Name              {:chars (assoc-chars :name)}
-   ;; Note, for now will only take the LAST Address Line
    :AddressLine       {:chars (append-chars :address_line)}
    :Directions        {:Text {:chars (assoc-intl-text :directions)}}
    :Hours             {:Text {:chars (assoc-intl-text :hours)}}
