@@ -1,7 +1,14 @@
 (ns vip-feed-format-converter.csv
-  (:require [clojure.data.csv :as csv]
+  (:require [clojure.core.async :as async]
+            [clojure.data.csv :as csv]
             [clojure.java.io :as io]
-            [clojure.core.async :as async]))
+            [clojure.string :as str]))
+
+(defn ->filename
+  [ctx file]
+  (let [basename (str/replace (name file) "-" "_")
+        dir (:out-dir ctx)]
+    (str dir "/" basename ".txt")))
 
 (defn setup-writer
   "Sets up to write to a CSV based on pulling values from the
@@ -10,8 +17,7 @@
   (update ctx :write-channels conj
           (async/thread
             (println "Start writing stream for" (name type))
-            (with-open [csv-file (io/writer (str (:out-dir ctx)
-                                                 "/" (name type) ".csv"))]
+            (with-open [csv-file (io/writer (->filename ctx type))]
               ;; write the file header
               (csv/write-csv csv-file [(map name headers)])
               ;; write data as it streams in
@@ -31,8 +37,7 @@
                                    (for [h headers]
                                      (get d h))))
                            [(map name headers)] data)]
-      (with-open [csv-file (io/writer (str (:out-dir ctx)
-                                           "/" (name file) ".csv"))]
+      (with-open [csv-file (io/writer (->filename ctx file))]
         (csv/write-csv csv-file csv-data))))
   (println "Done writing :csv-data files")
   ctx)
