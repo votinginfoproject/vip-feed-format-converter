@@ -4,7 +4,7 @@
             [clojure.java.io :as io]
             [clojure.string :as str]))
 
-(defn ->filename
+(defn filename
   [ctx file]
   (let [basename (str/replace (name file) "-" "_")
         dir (:out-dir ctx)]
@@ -17,7 +17,7 @@
   (update ctx :write-channels conj
           (async/thread
             (println "Start writing stream for" (name type))
-            (with-open [csv-file (io/writer (->filename ctx type))]
+            (with-open [csv-file (io/writer (filename ctx type))]
               ;; write the file header
               (csv/write-csv csv-file [(map name headers)])
               ;; write data as it streams in
@@ -37,7 +37,7 @@
                                    (for [h headers]
                                      (get d h))))
                            [(map name headers)] data)]
-      (with-open [csv-file (io/writer (->filename ctx file))]
+      (with-open [csv-file (io/writer (filename ctx file))]
         (csv/write-csv csv-file csv-data))))
   (println "Done writing :csv-data files")
   ctx)
