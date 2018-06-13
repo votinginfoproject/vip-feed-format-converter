@@ -17,7 +17,7 @@
   (:gen-class))
 
 (defn open-input-file [ctx]
-  (assoc ctx :input (io/reader (:in-file ctx))))
+  (assoc ctx :input (io/input-stream (:in-file ctx))))
 
 (defn close-input-file [{:keys [input] :as ctx}]
   (when input
