@@ -13,4 +13,5 @@
 
 (defn assoc-intl-text [top-level-key lang ctx event key]
   (if (= lang (get-in event [:prior :attrs :language]))
-    (assoc-chars top-level-key ctx event key)))
+    (assoc-chars top-level-key ctx event key)
+    ctx))
