@@ -25,8 +25,8 @@
    :ElectionType  {:Text {:chars (assoc-intl-text :election_type)}}
    :StateId              {:chars (assoc-chars :state_id)}
    :IsStatewide          {:chars (assoc-chars :is_statewide)}
-   :RegistrationInfo     {:chars (assoc-intl-text :registration_info)}
-   :AbsenteeBallotInfo   {:chars (assoc-intl-text :absentee_ballot_info)}
+   :RegistrationInfo {:Text {:chars (assoc-intl-text :registration_info)}}
+   :AbsenteeBallotInfo {:Text {:chars (assoc-intl-text :absentee_ballot_info)}}
    :ResultsUri           {:chars (assoc-chars :results_uri)}
    :PollingHours         {:chars (assoc-intl-text :polling_hours)}
    :HoursOpenId          {:chars (assoc-chars :hours_open_id)}
