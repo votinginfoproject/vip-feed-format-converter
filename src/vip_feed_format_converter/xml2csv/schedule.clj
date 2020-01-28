@@ -14,10 +14,6 @@
   (fn [ctx value]
     (util/assoc-chars :hours ctx value key)))
 
-(defn assoc-intl-text [key]
-  (fn [ctx value]
-    (util/assoc-intl-text :schedule)))
-
 (defn handlers [path-to-parent-id]
   {:start (fn [ctx event]
             (-> ctx
