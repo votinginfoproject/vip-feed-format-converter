@@ -9,11 +9,11 @@
 
 (defn assoc-chars [key]
   (fn [ctx value]
-    (util/assoc-chars :contact_information ctx value key)))
+    (util/assoc-chars :contact-information ctx value key)))
 
 (defn assoc-intl-text [key]
   (fn [ctx value]
-    (util/assoc-intl-text :contact_information "en" ctx value key)))
+    (util/assoc-intl-text :contact-information "en" ctx value key)))
 
 (defn maybe-add-address-line
   "This is a little confusing, so here's some context. We want to convert
@@ -23,20 +23,21 @@
   the tmp context, and each time we process an AddressLine we grab the next
   one until we are all out."
   [ctx event]
-  (let [address-lines (get-in ctx [:tmp :contact_information :address_lines])]
+  (let [address-lines (get-in ctx [:tmp :contact-information :address_lines])]
     (if (seq address-lines)
       (let [next-line (first address-lines)
             value (str/trim (:str event))
             remaining-lines (rest address-lines)]
         (-> ctx
-            (assoc-in [:tmp :contact_information next-line] value)
-            (assoc-in [:tmp :contact_information :address_lines] remaining-lines)))
+            (assoc-in [:tmp :contact-information next-line] value)
+            (assoc-in [:tmp :contact-information :address_lines] remaining-lines)))
       ctx)))
 
 (defn handlers [path-to-parent-id]
   {:start (fn [ctx event]
-            (assoc-in ctx [:tmp :contact_information]
-                      {:id (get-in event [:attrs :id])
+            (assoc-in ctx [:tmp :contact-information]
+                      {:id (or (get-in event [:attrs :label])
+                               (.toString (java.util.UUID/randomUUID)))
                        :parent_id (get-in ctx path-to-parent-id)
                        :address_lines [:address_line_1
                                        :address_line_2
@@ -59,7 +60,7 @@
    :Uri         {:chars (assoc-chars :uri)}
    :end (fn [ctx _]
           (-> ctx
-              (update-in [:tmp :contact_information] dissoc :address_lines)
-              (update-in [:csv-data :contact_information :data]
-                         conj (get-in ctx [:tmp :contact_information]))
-              (update :tmp dissoc :contact_information)))})
+              (update-in [:tmp :contact-information] dissoc :address_lines)
+              (update-in [:csv-data :contact-information :data]
+                         conj (get-in ctx [:tmp :contact-information]))
+              (update :tmp dissoc :contact-information)))})
