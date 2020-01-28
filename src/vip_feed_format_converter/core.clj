@@ -1,12 +1,31 @@
 (ns vip-feed-format-converter.core
   (:require [vip-feed-format-converter.csv :as csv]
+            [vip-feed-format-converter.xml2csv.ballot-measure-contest
+             :as ballot-measure-contest]
+            [vip-feed-format-converter.xml2csv.ballot-measure-selection
+             :as ballot-measure-selection]
+            [vip-feed-format-converter.xml2csv.candidate
+             :as candidate]
+            [vip-feed-format-converter.xml2csv.candidate-contest
+             :as candidate-contest]
+            [vip-feed-format-converter.xml2csv.candidate-selection
+             :as candidate-selection]
+            [vip-feed-format-converter.xml2csv.contact-information
+             :as contact-information]
             [vip-feed-format-converter.xml2csv.election :as election]
             [vip-feed-format-converter.xml2csv.electoral-district
              :as electoral-district]
+            [vip-feed-format-converter.xml2csv.hours-open :as hours-open]
             [vip-feed-format-converter.xml2csv.locality :as locality]
+            [vip-feed-format-converter.xml2csv.office :as office]
+            [vip-feed-format-converter.xml2csv.party
+             :as party]
+            [vip-feed-format-converter.xml2csv.person
+             :as person]
             [vip-feed-format-converter.xml2csv.polling-location
              :as polling-location]
             [vip-feed-format-converter.xml2csv.precinct :as precinct]
+            [vip-feed-format-converter.xml2csv.schedule :as schedule]
             [vip-feed-format-converter.xml2csv.source :as source]
             [vip-feed-format-converter.xml2csv.state :as state]
             [vip-feed-format-converter.xml2csv.street-segment
@@ -27,28 +46,59 @@
 (defn set-handlers [ctx]
   (assoc ctx :handlers
          {:VipObject
-          {:Election           election/handlers
-           :Locality           locality/handlers
-           :ElectoralDistrict  electoral-district/handlers
-           :PollingLocation    polling-location/handlers
-           :Precinct           precinct/handlers
-           :Source             source/handlers
-           :State              state/handlers
-           :StreetSegment      (street-segment/handlers
-                                (-> ctx :channels :street-segment))}}))
+          {:Election               election/handlers
+           :BallotMeasureContest   ballot-measure-contest/handlers
+           :BallotMeasureSelection ballot-measure-selection/handlers
+           :Candidate              candidate/handlers
+           :CandidateContest       candidate-contest/handlers
+           :CandidateSelection     candidate-selection/handlers
+           :ElectoralDistrict      electoral-district/handlers
+           :HoursOpen              hours-open/handlers
+           :Locality               locality/handlers
+           :Office                 office/handlers
+           :Party                  party/handlers
+           :Person                 person/handlers
+           :PollingLocation        polling-location/handlers
+           :Precinct               precinct/handlers
+           :Source                 source/handlers
+           :State                  state/handlers
+           :StreetSegment          (street-segment/handlers
+                                    (-> ctx :channels :street-segment))}}))
 
 (defn set-headers [ctx]
   (-> ctx
       (assoc-in [:csv-data :election :headers]
                 election/headers)
+      (assoc-in [:csv-data :ballot-measure-contest :headers]
+                ballot-measure-contest/headers)
+      (assoc-in [:csv-data :ballot-measure-selection :headers]
+                ballot-measure-selection/headers)
+      (assoc-in [:csv-data :candidate :headers]
+                candidate/headers)
+      (assoc-in [:csv-data :candidate-contest :headers]
+                candidate-contest/headers)
+      (assoc-in [:csv-data :candidate-selection :headers]
+                candidate-selection/headers)
+      (assoc-in [:csv-data :contact-information :headers]
+                contact-information/headers)
+      (assoc-in [:csv-data :hours-open :headers]
+                hours-open/headers)
       (assoc-in [:csv-data :locality :headers]
                 locality/headers)
       (assoc-in [:csv-data :electoral-district :headers]
                 electoral-district/headers)
+      (assoc-in [:csv-data :office :headers]
+                office/headers)
+      (assoc-in [:csv-data :party :headers]
+                party/headers)
+      (assoc-in [:csv-data :person :headers]
+                person/headers)
       (assoc-in [:csv-data :polling-location :headers]
                 polling-location/headers)
       (assoc-in [:csv-data :precinct :headers]
                 precinct/headers)
+      (assoc-in [:csv-data :schedule :headers]
+                schedule/headers)
       (assoc-in [:csv-data :source :headers]
                 source/headers)
       (assoc-in [:csv-data :state :headers]
