@@ -43,7 +43,6 @@
                                   (merge {:id (.toString
                                                (java.util.UUID/randomUUID))})))
                 schedules (mapv schedule-fn hours)]
-            #_(println (count (get-in ctx [:csv-data :schedule :data])))
             (if-let [data (get-in ctx [:csv-data :schedule :data])]
               (-> ctx
                   (update-in [:csv-data :schedule :data]
