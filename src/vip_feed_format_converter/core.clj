@@ -4,6 +4,8 @@
              :as ballot-measure-contest]
             [vip-feed-format-converter.xml2csv.ballot-measure-selection
              :as ballot-measure-selection]
+            [vip-feed-format-converter.xml2csv.ballot-style
+             :as ballot-style]
             [vip-feed-format-converter.xml2csv.candidate
              :as candidate]
             [vip-feed-format-converter.xml2csv.candidate-contest
@@ -53,6 +55,7 @@
          {:VipObject
           {:BallotMeasureContest    ballot-measure-contest/handlers
            :BallotMeasureSelection  ballot-measure-selection/handlers
+           :BallotStyle             ballot-style/handlers
            :Candidate               candidate/handlers
            :CandidateContest        candidate-contest/handlers
            :CandidateSelection      candidate-selection/handlers
@@ -77,6 +80,8 @@
                 ballot-measure-contest/headers)
       (assoc-in [:csv-data :ballot-measure-selection :headers]
                 ballot-measure-selection/headers)
+      (assoc-in [:csv-data :ballot-style :headers]
+                ballot-style/headers)
       (assoc-in [:csv-data :candidate :headers]
                 candidate/headers)
       (assoc-in [:csv-data :candidate-contest :headers]
