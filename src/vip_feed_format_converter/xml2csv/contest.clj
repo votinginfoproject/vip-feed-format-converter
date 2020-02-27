@@ -1,9 +1,5 @@
 (ns vip-feed-format-converter.xml2csv.contest
-  (:require [vip-feed-format-converter.xml2csv.external-identifiers
-             :as external-identifiers]
-            [vip-feed-format-converter.xml2csv.vote-variation
-             :as vote-variation]
-            [vip-feed-format-converter.util :as util]))
+  (:require [vip-feed-format-converter.util :as util]))
 
 (def headers
   [:id :abbreviation :ballot_selection_ids :ballot_sub_title :ballot_title
