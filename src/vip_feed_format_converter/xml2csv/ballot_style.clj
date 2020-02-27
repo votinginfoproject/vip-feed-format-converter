@@ -12,8 +12,7 @@
   {:start (fn [ctx event]
             (-> ctx
                 (assoc-in [:tmp :ballot-style]
-                          {:id (.toString (java.util.UUID/randomUUID))
-                            })))
+                          {:id (get-in event [:attrs :id])})))
    :ImageUri            {:chars (assoc-chars :image_uri)}
    :OrderedContestIds   {:chars (assoc-chars :ordered_contest_ids)}
    :PartyIds            {:chars (assoc-chars :party_ids)}
