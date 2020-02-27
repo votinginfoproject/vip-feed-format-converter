@@ -16,6 +16,8 @@
              :as candidate-selection]
             [vip-feed-format-converter.xml2csv.contact-information
              :as contact-information]
+            [vip-feed-format-converter.xml2csv.contest
+             :as contest]
             [vip-feed-format-converter.xml2csv.department :as department]
             [vip-feed-format-converter.xml2csv.election :as election]
             [vip-feed-format-converter.xml2csv.election-administration
@@ -62,6 +64,7 @@
            :Candidate               candidate/handlers
            :CandidateContest        candidate-contest/handlers
            :CandidateSelection      candidate-selection/handlers
+           :Contest                 contest/handlers
            :Election                election/handlers
            :ElectionAdministration  election-administration/handlers
            :ElectoralDistrict       electoral-district/handlers
@@ -95,6 +98,8 @@
                 candidate-selection/headers)
       (assoc-in [:csv-data :contact-information :headers]
                 contact-information/headers)
+      (assoc-in [:csv-data :contest :headers]
+                contest/headers)
       (assoc-in [:csv-data :department :headers]
                 department/headers)
       (assoc-in [:csv-data :election :headers]
