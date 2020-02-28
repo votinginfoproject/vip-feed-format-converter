@@ -25,7 +25,12 @@
    :BallotTitle               {:Text {:chars (assoc-intl-text :ballot_title)}}
    :ElectoralDistrictId              {:chars (assoc-chars :electoral_district_id)}
    :ElectorateSpecification   {:Text {:chars (assoc-intl-text :electorate_specification)}}
-   :ExternalIdentifierType           {:chars (assoc-chars :external_identifier_type)}
+   ;; Note, will currently only save the LAST External Identifier in the CSV
+   :ExternalIdentifiers
+   {:ExternalIdentifier
+    {:Type      {:chars (assoc-chars :external_identifier_type)}
+     :OtherType {:chars (assoc-chars :external_identifier_othertype)}
+     :Value     {:chars (assoc-chars :external_identifier_value)}}}
    :HasRotation                      {:chars (assoc-chars :has_rotation)}
    :Name                             {:chars (assoc-chars :name)}
    :SequenceOrder                    {:chars (assoc-chars :sequence_order)}
