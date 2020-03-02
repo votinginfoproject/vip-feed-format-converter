@@ -37,6 +37,7 @@
             [vip-feed-format-converter.xml2csv.polling-location
              :as polling-location]
             [vip-feed-format-converter.xml2csv.precinct :as precinct]
+            [vip-feed-format-converter.xml2csv.retention-contest :as retention-contest]
             [vip-feed-format-converter.xml2csv.schedule :as schedule]
             [vip-feed-format-converter.xml2csv.source :as source]
             [vip-feed-format-converter.xml2csv.state :as state]
@@ -80,6 +81,7 @@
            :Person                  person/handlers
            :PollingLocation         polling-location/handlers
            :Precinct                precinct/handlers
+           :RetentionContest        retention-contest/handlers
            :Source                  source/handlers
            :State                   state/handlers
            :StreetSegment           (street-segment/handlers
@@ -131,6 +133,8 @@
                 polling-location/headers)
       (assoc-in [:csv-data :precinct :headers]
                 precinct/headers)
+      (assoc-in [:csv-data :retention-contest :headers]
+                retention-contest/headers)
       (assoc-in [:csv-data :schedule :headers]
                 schedule/headers)
       (assoc-in [:csv-data :source :headers]
