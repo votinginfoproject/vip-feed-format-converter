@@ -12,8 +12,8 @@
   {:start (fn [ctx event]
             (assoc-in ctx [:tmp :party-selection]
                       {:id (get-in event [:attrs :id])}))
-   :PartyIds         {:chars (assoc-chars :party_ids)}
    :SequenceOrder    {:chars (assoc-chars :sequence_order)}
+   :PartyIds         {:chars (assoc-chars :party_ids)}
    :end (fn [ctx _]
           (-> ctx
               (update-in [:csv-data :party-selection :data]
