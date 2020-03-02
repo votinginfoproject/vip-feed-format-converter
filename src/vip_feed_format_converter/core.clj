@@ -4,6 +4,8 @@
              :as ballot-measure-contest]
             [vip-feed-format-converter.xml2csv.ballot-measure-selection
              :as ballot-measure-selection]
+            [vip-feed-format-converter.xml2csv.ballot-selection
+             :as ballot-selection]
             [vip-feed-format-converter.xml2csv.ballot-style
              :as ballot-style]
             [vip-feed-format-converter.xml2csv.candidate
@@ -14,6 +16,8 @@
              :as candidate-selection]
             [vip-feed-format-converter.xml2csv.contact-information
              :as contact-information]
+            [vip-feed-format-converter.xml2csv.contest
+             :as contest]
             [vip-feed-format-converter.xml2csv.department :as department]
             [vip-feed-format-converter.xml2csv.election :as election]
             [vip-feed-format-converter.xml2csv.election-administration
@@ -23,13 +27,19 @@
             [vip-feed-format-converter.xml2csv.hours-open :as hours-open]
             [vip-feed-format-converter.xml2csv.locality :as locality]
             [vip-feed-format-converter.xml2csv.office :as office]
+            [vip-feed-format-converter.xml2csv.ordered-contest :as ordered-contest]
             [vip-feed-format-converter.xml2csv.party
              :as party]
+            [vip-feed-format-converter.xml2csv.party-contest
+             :as party-contest]
+            [vip-feed-format-converter.xml2csv.party-selection
+             :as party-selection]
             [vip-feed-format-converter.xml2csv.person
              :as person]
             [vip-feed-format-converter.xml2csv.polling-location
              :as polling-location]
             [vip-feed-format-converter.xml2csv.precinct :as precinct]
+            [vip-feed-format-converter.xml2csv.retention-contest :as retention-contest]
             [vip-feed-format-converter.xml2csv.schedule :as schedule]
             [vip-feed-format-converter.xml2csv.source :as source]
             [vip-feed-format-converter.xml2csv.state :as state]
@@ -55,20 +65,26 @@
          {:VipObject
           {:BallotMeasureContest    ballot-measure-contest/handlers
            :BallotMeasureSelection  ballot-measure-selection/handlers
+           :BallotSelection         ballot-selection/handlers
            :BallotStyle             ballot-style/handlers
            :Candidate               candidate/handlers
            :CandidateContest        candidate-contest/handlers
            :CandidateSelection      candidate-selection/handlers
+           :Contest                 contest/handlers
            :Election                election/handlers
            :ElectionAdministration  election-administration/handlers
            :ElectoralDistrict       electoral-district/handlers
            :HoursOpen               hours-open/handlers
            :Locality                locality/handlers
            :Office                  office/handlers
+           :OrderedContest          ordered-contest/handlers
            :Party                   party/handlers
+           :PartyContest            party-contest/handlers
+           :PartySelection          party-selection/handlers
            :Person                  person/handlers
            :PollingLocation         polling-location/handlers
            :Precinct                precinct/handlers
+           :RetentionContest        retention-contest/handlers
            :Source                  source/handlers
            :State                   state/handlers
            :StreetSegment           (street-segment/handlers
@@ -80,6 +96,8 @@
                 ballot-measure-contest/headers)
       (assoc-in [:csv-data :ballot-measure-selection :headers]
                 ballot-measure-selection/headers)
+      (assoc-in [:csv-data :ballot-selection :headers]
+                ballot-selection/headers)
       (assoc-in [:csv-data :ballot-style :headers]
                 ballot-style/headers)
       (assoc-in [:csv-data :candidate :headers]
@@ -90,6 +108,8 @@
                 candidate-selection/headers)
       (assoc-in [:csv-data :contact-information :headers]
                 contact-information/headers)
+      (assoc-in [:csv-data :contest :headers]
+                contest/headers)
       (assoc-in [:csv-data :department :headers]
                 department/headers)
       (assoc-in [:csv-data :election :headers]
@@ -104,14 +124,22 @@
                 locality/headers)
       (assoc-in [:csv-data :office :headers]
                 office/headers)
+      (assoc-in [:csv-data :ordered-contest :headers]
+                ordered-contest/headers)
       (assoc-in [:csv-data :party :headers]
                 party/headers)
+      (assoc-in [:csv-data :party-contest :headers]
+                party-contest/headers)
+      (assoc-in [:csv-data :party-selection :headers]
+                party-selection/headers)
       (assoc-in [:csv-data :person :headers]
                 person/headers)
       (assoc-in [:csv-data :polling-location :headers]
                 polling-location/headers)
       (assoc-in [:csv-data :precinct :headers]
                 precinct/headers)
+      (assoc-in [:csv-data :retention-contest :headers]
+                retention-contest/headers)
       (assoc-in [:csv-data :schedule :headers]
                 schedule/headers)
       (assoc-in [:csv-data :source :headers]
