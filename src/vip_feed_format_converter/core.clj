@@ -32,6 +32,8 @@
              :as party]
             [vip-feed-format-converter.xml2csv.party-contest
              :as party-contest]
+            [vip-feed-format-converter.xml2csv.party-selection
+             :as party-selection]
             [vip-feed-format-converter.xml2csv.person
              :as person]
             [vip-feed-format-converter.xml2csv.polling-location
@@ -78,6 +80,7 @@
            :OrderedContest          ordered-contest/handlers
            :Party                   party/handlers
            :PartyContest            party-contest/handlers
+           :PartySelection          party-selection/handlers
            :Person                  person/handlers
            :PollingLocation         polling-location/handlers
            :Precinct                precinct/handlers
@@ -127,6 +130,8 @@
                 party/headers)
       (assoc-in [:csv-data :party-contest :headers]
                 party-contest/headers)
+      (assoc-in [:csv-data :party-selection :headers]
+                party-selection/headers)
       (assoc-in [:csv-data :person :headers]
                 person/headers)
       (assoc-in [:csv-data :polling-location :headers]
