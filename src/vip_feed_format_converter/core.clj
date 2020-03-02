@@ -27,6 +27,7 @@
             [vip-feed-format-converter.xml2csv.hours-open :as hours-open]
             [vip-feed-format-converter.xml2csv.locality :as locality]
             [vip-feed-format-converter.xml2csv.office :as office]
+            [vip-feed-format-converter.xml2csv.ordered-contest :as ordered-contest]
             [vip-feed-format-converter.xml2csv.party
              :as party]
             [vip-feed-format-converter.xml2csv.person
@@ -71,6 +72,7 @@
            :HoursOpen               hours-open/handlers
            :Locality                locality/handlers
            :Office                  office/handlers
+           :OrderedContest          ordered-contest/handlers
            :Party                   party/handlers
            :Person                  person/handlers
            :PollingLocation         polling-location/handlers
@@ -114,6 +116,8 @@
                 locality/headers)
       (assoc-in [:csv-data :office :headers]
                 office/headers)
+      (assoc-in [:csv-data :ordered-contest :headers]
+                ordered-contest/headers)
       (assoc-in [:csv-data :party :headers]
                 party/headers)
       (assoc-in [:csv-data :person :headers]
