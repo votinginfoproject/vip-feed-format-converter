@@ -3,7 +3,7 @@
 
 (def headers
   [:id :abbreviation :ballot_selection_ids :ballot_sub_title :ballot_title
-   :elecoral_district_id :electorate_specification :external_identifier_type
+   :electoral_district_id :electorate_specification :external_identifier_type
    :external_identifier_othertype :external_identifier_value :has_rotation
    :name :sequence_order :vote_variation :other_vote_variation
    :con_statement :effect_of_abstain :full_text :info_uri :passage_threshold
