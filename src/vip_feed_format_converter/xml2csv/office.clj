@@ -4,9 +4,10 @@
              :as contact-information]))
 
 (def headers
-  [:id :ballot_name :external_identifier_type :external_identifier_othertype
-   :external_identifier_value :file_date :is_incumbent :is_top_ticket
-   :party_id :person_id :post_election_status :pre_election_status])
+  [:id :name :electoral_district_id :external_identifier_type
+   :external_identifier_othertype :external_identifier_value :file_date
+   :is_incumbent :is_top_ticket :party_id :person_id :post_election_status
+   :pre_election_status])
 
 (defn assoc-chars [key]
   (fn [ctx value]
@@ -21,7 +22,8 @@
             (assoc-in ctx [:tmp :office]
                       {:id (get-in event [:attrs :id])}))
    :ContactInformation (contact-information/handlers [:tmp :office :id])
-   :BallotName    {:Text {:chars (assoc-intl-text :ballot_name)}}
+   :Name         {:Text {:chars (assoc-intl-text :name)}}
+   :ElectoralDistrictId {:chars (assoc-chars :electoral_district_id)}
    ;; Note, will currently only save the LAST External Identifier in the CSV
    :ExternalIdentifiers
    {:ExternalIdentifier
