@@ -17,9 +17,9 @@
             (assoc-in ctx [:tmp :candidate-selection]
                       {:id (get-in event [:attrs :id])}))
    :SequenceOrder       {:chars (assoc-chars :sequence_order)}
-   :CandidateIds        {:chars (assoc-intl-text :candidate_ids)}
-   :EndorsementPartyIds {:chars (assoc-intl-text :endorsement_party_ids)}
-   :IsWriteIn           {:chars (assoc-intl-text :is_write_in)}
+   :CandidateIds        {:chars (assoc-chars :candidate_ids)}
+   :EndorsementPartyIds {:chars (assoc-chars :endorsement_party_ids)}
+   :IsWriteIn           {:chars (assoc-chars :is_write_in)}
    :end (fn [ctx _]
           (-> ctx
               (update-in [:csv-data :candidate-selection :data]
