@@ -8,7 +8,7 @@
   (fn [ctx value]
     (util/assoc-chars :ballot-style ctx value key)))
 
-(defn handlers [path-to-parent-id]
+(def handlers
   {:start (fn [ctx event]
             (-> ctx
                 (assoc-in [:tmp :ballot-style]
