@@ -2,13 +2,13 @@
 
 Converts VIP feeds from one format to another.
 
-Currently only supports 5.1 XML -> 5.1 CSV.
+Currently only supports 5.X XML -> 5.X CSV.
 
 ## Usage
 
     $ lein uberjar
     $ mkdir csv-out-dir
-    $ java -jar target/vip-feed-format-converter.jar input.xml csv-out-dir
+    $ java -jar target/uberjar/vip-feed-format-converter.jar input.xml csv-out-dir
     
 ## Conversion Process
 
